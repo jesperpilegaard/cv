@@ -3,3 +3,4 @@ pandas
 matplotlib
 plotly
 pydeck
+streamlit_plotly_events
