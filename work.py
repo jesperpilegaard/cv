@@ -55,10 +55,31 @@ with col1:
         ],
         "description": [
             "Jeg stod for udtræk, analyse og visualisering af tekstdata fra en af deres robotter, hvilket skal hjælpe med at optimere robottens processer. Formålet er at se, hvilke cyklusser og processer, der tager lang tid for robotten samt finde ud af hvorfor. Jeg har blandt andet udviklet et interaktivt dashboard gennem streamlit, så man lettere kan få indsigter i robottens opgaver. Hele projektet har jeg arbejdet med meget selvstændigt og selv udtænkt, hvordan vi nemmest og bedst muligt kan få dybe indsigter i robottens data. Jeg har arbejdet med Streamlit i Python. Klik på fanen \"Dashboard Scape\" for at se, hvad jeg har lavet.",
-            "Som postbud har jeg stået for post- og pakkelevering, altid med et smil på læben for at sørge for den bedst mulilge kundeoplevelse.",
+            "Som postbud har jeg stået for post- og pakkelevering, altid med et smil på læben for at sørge for den bedst mulige kundeoplevelse.",
             "Jeg arbejdede med dataanalyse og visualisering af intern data i Microsoft Power BI med formålet at kunne tage databaserede beslutinger. Jobbet gav mig solid erfaring med Power BI samt værdifuld viden inden for, hvordan man internt kan skabe værdi af sine rå data.",
             "Her har jeg stået for alt fra tilrettelæggelse, fotografering, interviews til klipning af endelige programmer. Alt, hvad man kan forestille sig inden for journalistik og videoproduktion. Jeg har lært at arbejde meget selvstændigt med større projekter og og tænkt kreativt i forhold til, hvordan vi bedst muligt kan producere indhold til unge mennesker lokalt.",
             "Christian Firtal er en øl-bar i Odense, der specialiserer sig i specialøl og spiritus. Her har jeg fået god erfaring inden for kundepleje/service samt meget viden inden for øl og spiritus."
+        ],
+        "skills": [
+            "Python, Streamlit, Programmering, Dataudtræk, Dataanalyse, Visualisering",
+            "Kundeservice, Gode kørefærdigheder, Selvstændigt arbejde",
+            "Power BI, Python, DAX, Dataudtræk, Dataanalyse, Visualisering",
+            "Videoredigering, Adobe Premiere Pro, Interviews, Tilrettelæggelse, Fotografering",
+            "Kundeservice, Øl- og spiritus-aficionado, Ansvarlighed"
+        ],
+        "image": [
+            None,
+            None,
+            None,
+            ["images/lokaltv.jpg", "images/lokaltv2.jpeg", "images/lokaltv3.jpg", "images/lokaltv4.jpg"],
+            "images/c41.jpg"
+        ],
+        "video": [
+            None,
+            None,
+            None,
+            "videos/magiske.mov",
+            None
         ]
     })
 
@@ -103,7 +124,9 @@ with col2:
         "lat": [55.07614584190186],
         "lon": [14.914868472018988],
         "info": ["TV 2/Bornholm"],
-        "description": ["Jeg arbejdede som videojournalist, reporter, live reporter, vært samt webjournalist. Jeg blev særligt god til at producere mine egne indslag og arbejde på egen hånd. Derudover har jeg fået en god stemmeføring til at speake, samt jeg er god til at bygge en historie op."]
+        "description": ["Jeg arbejdede som videojournalist, reporter, live reporter, vært samt webjournalist. Jeg blev særligt god til at producere mine egne indslag og arbejde på egen hånd. Derudover har jeg fået en god stemmeføring til at speake, samt jeg er god til at bygge en historie op."],
+        "skills": ["Videoredigering, Fotografering, Interviews, Speaks, Kreativ skrivning, Analyse, Lokalpolitik"],
+        "video": [["videos/soem.mp4", "videos/kontrol.mp4"]]
     })
 
     # Define our Scatterplot layer
@@ -158,7 +181,10 @@ if event_odense.selection is not None and hasattr(event_odense.selection, "objec
             "info": selected_event["info"],
             "lat": selected_event["lat"],
             "lon": selected_event["lon"],
-            "description": selected_event["description"]
+            "description": selected_event["description"],
+            "skills": selected_event["skills"],
+            "video": selected_event["video"],
+            "image": selected_event["image"]
         }
 
 # Kontroller for Aakirkeby kort
@@ -169,11 +195,43 @@ if event_aakirkeby.selection is not None and hasattr(event_aakirkeby.selection, 
             "info": selected_event["info"],
             "lat": selected_event["lat"],
             "lon": selected_event["lon"],
-            "description": selected_event["description"]
+            "description": selected_event["description"],
+            "skills": selected_event["skills"],
+            "video": selected_event["video"]
         }
 
-# Display selected job if any job is selected
 if "selected_job" in st.session_state:
     selected_job = st.session_state["selected_job"]
+    
     st.write(f"**Valgt job**: {selected_job['info']}")
     st.write(f"**Beskrivelse**: {selected_job['description']}")
+    st.write(f"**Kompetencer**: {selected_job['skills']}")
+
+    # Indlejring af LinkedIn-indlæg baseret på job
+    if selected_job['info'] == "Scape Technologies A/S":
+        st.write(f"**Anbefaling**:")
+        linkedin_embed_code = """
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7288568232259522560" 
+                height="963" width="504" frameborder="0" allowfullscreen="" title="Indlejret indlæg">
+        </iframe>
+        """
+        st.markdown(linkedin_embed_code, unsafe_allow_html=True)
+
+    if "image" in selected_job and selected_job["image"]:
+        if isinstance(selected_job["image"], list):  # Hvis video er en liste
+            cols = st.columns(len(selected_job["image"]))  # Opretter kolonner
+            for col, image in zip(cols, selected_job["image"]):
+                with col:
+                    st.image(image)
+        else:  # Hvis video er en enkelt string
+            st.image(selected_job["image"])
+
+    # Vis videoer, hvis det findes
+    if "video" in selected_job and selected_job["video"]:
+        if isinstance(selected_job["video"], list):  # Hvis video er en liste
+            cols = st.columns(len(selected_job["video"]))  # Opretter kolonner
+            for col, video in zip(cols, selected_job["video"]):
+                with col:
+                    st.video(video)
+        else:  # Hvis video er en enkelt string
+            st.video(selected_job["video"])
