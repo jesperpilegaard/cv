@@ -49,7 +49,7 @@ with col1:
 
 # Højre kolonne (billede)
 with col2:
-    st.image("images/DSC03518.jpg", caption="Jesper Pilegaard Kristensen", use_container_width=True)
+    st.image("images/migfarve2.jpeg", caption="Jesper Pilegaard Kristensen", use_container_width=True)
 
     # Faktaboks
     st.markdown("""

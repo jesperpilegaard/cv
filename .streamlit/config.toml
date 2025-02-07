@@ -5,6 +5,7 @@ port = 8501
 
 [theme]
 base = "light"
-primaryColor = "#00BFFF"
-backgroundColor = "#D2EDF1"
-secondaryBackgroundColor = "#C2DFE6"
+primaryColor = "#A67B5B"  # En varm brun/beige farve til knapper osv.
+backgroundColor = "#F5E6DA"  # Lys beige baggrund
+secondaryBackgroundColor = "#EADBC8" # Mørkere beige
+font = "serif"
