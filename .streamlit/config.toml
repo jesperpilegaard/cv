@@ -7,4 +7,4 @@ port = 8501
 base = "light"
 primaryColor = "#00BFFF"
 backgroundColor = "#F1F0D2"
-secondarybackgroundColor = "#C2DFE6"
+secondaryBackgroundColor = "#C2DFE6"
