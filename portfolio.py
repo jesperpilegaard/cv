@@ -9,7 +9,7 @@ warnings.filterwarnings('ignore')
 st.set_page_config(page_title="Logdata Visualization", page_icon=":bar_chart:", layout="wide")
 
 st.title(" :bar_chart: Logdata Visualization")
-st.info("The purpose of this dashboard is to gain deeper insights into a robot's performance. We get insights into the various tasks as well as error messages, and users can take a closer look at individual cycles and tasks. Additionally, you can view the images the robot has taken during a task by clicking on the line chart. Furthermore, it is possible to compare cycles and dates with each other. This dashboard is created with synthetic data solely for demonstration purposes. Therefore, the data is \"cleaner\" than it would have been with the real data.")
+st.info("Dette dashboard er lavet af mig til Scape Technologies. Formålet med dette dashboard er at opnå dybere indsigt i en robots ydeevne. Vi får indsigt i de forskellige opgaver samt fejlmeddelelser, og brugere kan se nærmere på individuelle cyklusser og opgaver. Derudover kan man se de billeder, som robotten har taget under en opgave, ved at klikke på linjediagrammet. Det er også muligt at sammenligne cyklusser og datoer med hinanden. Dette dashboard er skabt med syntetiske data udelukkende til demonstrationsformål. Derfor er dataene \"renere\", end de ville have været med de reelle data.")
 st.markdown('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
 
 # Arbejdsmappen sættes automatisk af din Streamlit app
