@@ -53,7 +53,7 @@ with col2:
 
     # Faktaboks
     st.markdown("""
-    <div style="background-color: #EADBC8; padding: 15px; border-radius: 10px; margin-top: 20px;">
+    <div style="background-color: #BBDEFB; padding: 15px; border-radius: 10px; margin-top: 20px;">
         <h5>📬 Kontaktinformationer</h5>
         <p><strong>Email:</strong> jpkristensen93@gmail.com</p>
         <p><strong>Telefon:</strong> +45 42 91 36 90</p>
