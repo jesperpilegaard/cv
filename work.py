@@ -133,7 +133,7 @@ with col1:
         layers=layer,
         initial_view_state=odense_view_state,
         tooltip={"text": "{info}"},
-        map_style="mapbox://styles/mapbox/outdoors-v12"
+        map_style="mapbox://styles/mapbox/light-v11"
     )
 
     event_odense = st.pydeck_chart(r, on_select='rerun', selection_mode="single-object")
