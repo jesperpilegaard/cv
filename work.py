@@ -133,7 +133,7 @@ with col1:
         layers=layer,
         initial_view_state=odense_view_state,
         tooltip={"text": "{info}"},
-        map_style="mapbox://styles/mapbox/streets-v12"
+        map_style="mapbox://styles/mapbox/outdoors-v12"
     )
 
     event_odense = st.pydeck_chart(r, on_select='rerun', selection_mode="single-object")
@@ -184,7 +184,7 @@ with col2:
         layers=aakirkeby_layer,
         initial_view_state=aakirkeby_view_state,
         tooltip={"text": "{info}"},
-        map_style="mapbox://styles/mapbox/streets-v12"
+        map_style="mapbox://styles/mapbox/outdoors-v12"
     )
 
     event_aakirkeby = st.pydeck_chart(r2, on_select='rerun', selection_mode="single-object")
