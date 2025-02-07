@@ -21,7 +21,8 @@ st.sidebar.markdown("""
 st.title("Erhvervserfaring")
 st.markdown('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
 st.info("""På denne side kan I læse lidt mere om, hvor jeg har arbejdet. Kortene viser hhv. arbejdssteder 
-        i Odense og Aakirkeby. Klik på punkterne for at læse lidt mere om det arbejde, jeg har udført.
+        i Odense og Aakirkeby. Klik på punkterne for at læse lidt mere om det arbejde, jeg har udført. 🟢 Betyder jobs
+        relateret til Data Science, 🔴 er jobs relateret til journalistik, mens 🟡 er andre jobs.
         """)
 
 
@@ -60,6 +61,11 @@ with col1:
             "Her har jeg stået for alt fra tilrettelæggelse, fotografering, interviews til klipning af endelige programmer. Alt, hvad man kan forestille sig inden for journalistik og videoproduktion. Jeg har lært at arbejde meget selvstændigt med større projekter og og tænkt kreativt i forhold til, hvordan vi bedst muligt kan producere indhold til unge mennesker lokalt.",
             "Christian Firtal er en øl-bar i Odense, der specialiserer sig i specialøl og spiritus. Her har jeg fået god erfaring inden for kundepleje/service samt meget viden inden for øl og spiritus."
         ],
+        "category": ["Data Science",
+                     "Andet",
+                     "Data Science",
+                     "Journalistik",
+                     "Andet"],
         "skills": [
             "Python, Streamlit, Programmering, Dataudtræk, Dataanalyse, Visualisering",
             "Kundeservice, Gode kørefærdigheder, Selvstændigt arbejde",
@@ -80,8 +86,23 @@ with col1:
             None,
             "videos/magiske.mov",
             None
+        ],
+        "video_description": [
+            None,
+            None,
+            None,
+            "En lille teaser til et program om Magiske Dage i Odense. Jeg skulle egentlig have været bag kameraet, men en af værterne havde ikke mulighed for at være foran kamera, så jeg måtte hurtigt omstille mig på at skulle være vært i stedet for fotograf.",
+            None
         ]
     })
+
+    category_colors = {
+        "Data Science": [0, 255, 0, 160],
+        "Journalistik": [255, 0, 0, 160],
+        "Andet": [255, 255, 0, 160]
+    }
+
+    odense_coords["color"] = odense_coords["category"].map(category_colors)
 
     # Define our Scatterplot layer
     layer = pdk.Layer(
@@ -89,7 +110,7 @@ with col1:
         data=odense_coords,
         id="Odense",
         get_position=["lon", "lat"],
-        get_fill_color=[0, 140, 255, 160],
+        get_fill_color="color",
         get_line_color=[0, 0, 0, 255],
         pickable=True,
         stroked=True,
@@ -125,9 +146,14 @@ with col2:
         "lon": [14.914868472018988],
         "info": ["TV 2/Bornholm"],
         "description": ["Jeg arbejdede som videojournalist, reporter, live reporter, vært samt webjournalist. Jeg blev særligt god til at producere mine egne indslag og arbejde på egen hånd. Derudover har jeg fået en god stemmeføring til at speake, samt jeg er god til at bygge en historie op."],
+        "category": ["Journalistik"],
         "skills": ["Videoredigering, Fotografering, Interviews, Speaks, Kreativ skrivning, Analyse, Lokalpolitik"],
-        "video": [["videos/soem.mp4", "videos/kontrol.mp4"]]
+        "video": [["videos/soem.mp4", "videos/kontrol.mp4"]],
+        "video_description": [["En kort teaser til et sommerprogram på TV 2/Bornholm. Her blev jeg også bare kastet ud i værtsrollen uden at vide, hvad jeg skulle. Det endte med, at jeg skulle lære at stikke et søm i næsen, og det viser bl.a., hvor omstillingsparat jeg er",
+                              "Et indslag om de danske grænselukninger; lokalt på Bornholm. Her viser jeg mine evner i at speake og bygge en historie op, mens jeg også er ude i at interviewe på både dansk, engelsk og tysk."]]
     })
+
+    aakirkeby_coords["color"] = aakirkeby_coords["category"].map(category_colors)
 
     # Define our Scatterplot layer
     aakirkeby_layer = pdk.Layer(
@@ -135,7 +161,7 @@ with col2:
         data=aakirkeby_coords,
         id="Aakirkeby",
         get_position=["lon", "lat"],
-        get_fill_color=[0, 140, 255, 160],
+        get_fill_color="color",
         get_line_color=[0, 0, 0, 255],
         pickable=True,
         stroked=True,
@@ -184,7 +210,8 @@ if event_odense.selection is not None and hasattr(event_odense.selection, "objec
             "description": selected_event["description"],
             "skills": selected_event["skills"],
             "video": selected_event["video"],
-            "image": selected_event["image"]
+            "image": selected_event["image"],
+            "video_description": selected_event["video_description"]
         }
 
 # Kontroller for Aakirkeby kort
@@ -197,7 +224,8 @@ if event_aakirkeby.selection is not None and hasattr(event_aakirkeby.selection, 
             "lon": selected_event["lon"],
             "description": selected_event["description"],
             "skills": selected_event["skills"],
-            "video": selected_event["video"]
+            "video": selected_event["video"],
+            "video_description": selected_event["video_description"]
         }
 
 if "selected_job" in st.session_state:
@@ -235,3 +263,13 @@ if "selected_job" in st.session_state:
                     st.video(video)
         else:  # Hvis video er en enkelt string
             st.video(selected_job["video"])
+
+    # Vis videobeskrivelse, hvis det findes
+    if "video_description" in selected_job and selected_job["video_description"]:
+        if isinstance(selected_job["video_description"], list):  # Hvis video er en liste
+            cols = st.columns(len(selected_job["video_description"]))  # Opretter kolonner
+            for col, video_description in zip(cols, selected_job["video_description"]):
+                with col:
+                    st.write(video_description)
+        else:  # Hvis video er en enkelt string
+            st.write(selected_job["video_description"])
