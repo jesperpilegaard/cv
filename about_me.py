@@ -30,7 +30,7 @@ with col1:
     hvilket har givet mig værdifuld viden inden for områder som machine learning, natural language processing, 
     dataanalyse, visualisering, dataetik samt meget mere. 
     Dette gør mig til en stærk kandidat til at bidrage som kollega hos de fleste virksomheder,
-    som brænder inde med rå data, enten til analyse, machine learning, AI, visialisering mm.
+    som brænder inde med rå data, enten til analyse, machine learning, AI, visualisering mm.
 
     Før jeg begyndte på min kandidatuddannelse i Data Science, tog jeg en bachelor i Journalistik på SDU, 
     hvilket jeg mener gør mig særligt velegnet til at formidle komplekse dataindsigter til personer uden samme 
